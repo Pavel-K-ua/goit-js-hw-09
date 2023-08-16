@@ -16,3 +16,21 @@ img {
   display: block;
   max-width: 100%;
 }
+
+/* TIMER */
+
+.timer,
+.field {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.field {
+  flex-direction: column;
+}
+
+.value {
+  font-size: 32px;
+  /* color: blue; */
+}
