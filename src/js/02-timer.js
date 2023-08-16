@@ -1,57 +1,49 @@
 import flatpickr from 'flatpickr';
 import '../../node_modules/flatpickr/dist/flatpickr.min.css';
 
-// Якщо користувач вибрав дату в минулому, покажи window.alert() з текстом "Please choose a date in the future".
-// Якщо користувач вибрав валідну дату (в майбутньому), кнопка «Start» стає активною.
-// Кнопка «Start» повинна бути неактивною доти, доки користувач не вибрав дату в майбутньому.
-// Натисканням на кнопку «Start» починається відлік часу до обраної дати з моменту натискання.
+const refs = {
+  input: document.querySelector('#datetime-picker'),
+  startBtn: document.querySelector('button[data-start]'),
+  daysEl: document.querySelector('span[data-days]'),
+  hoursEl: document.querySelector('span[data-hours]'),
+  minutesEl: document.querySelector('span[data-minutes]'),
+  secondsEl: document.querySelector('span[data-seconds]'),
+};
 
-const input = document.querySelector('#datetime-picker');
-const startBtn = document.querySelector('button[data-start]');
-const daysEl = document.querySelector('span[data-days]');
-const hoursEl = document.querySelector('span[data-hours]');
-const minutesEl = document.querySelector('span[data-minutes]');
-const secondsEl = document.querySelector('span[data-seconds]');
-
-startBtn.setAttribute('disabled', '');
-
+refs.startBtn.setAttribute('disabled', '');
 
 const nowTime = new Date();
-// console.log(nowTime);
-let selectedTime;
 const options = {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    // console.log(selectedDates[0]);
     if (selectedDates[0] <= nowTime) {
       window.alert('Please choose a date in the future');
-    } 
-      startBtn.removeAttribute('disabled');
-      let diff = selectedDates[0] - nowTime;
-    //   console.log(diff);
-startBtn.addEventListener("click", onStartBtnClick)
-function onStartBtnClick() {
-    const interval = setInterval(() =>{
-        diff -= 1000
+    }
+    refs.startBtn.removeAttribute('disabled');
+    let diff = selectedDates[0] - nowTime;
+    refs.startBtn.addEventListener('click', onStartBtnClick);
+    function onStartBtnClick() {
+      const interval = setInterval(() => {
+        transform ()
+        diff -= 1000;
         diffObj = convertMs(diff);
-    //   console.log(diffObj);
-      daysEl.textContent = diffObj.days.toString().padStart(2, '0');
-      hoursEl.textContent = diffObj.hours.toString().padStart(2, '0');
-      minutesEl.textContent = diffObj.minutes.toString().padStart(2, '0');
-      secondsEl.textContent = diffObj.seconds.toString().padStart(2, '0');
-    if (diff === 0) clearInterval(interval)},1000)
-    
-}
-     
-      
+        refs.daysEl.textContent = diffObj.days.toString().padStart(2, '0');
+        refs.hoursEl.textContent = diffObj.hours.toString().padStart(2, '0');
+        refs.minutesEl.textContent = diffObj.minutes
+          .toString()
+          .padStart(2, '0');
+        refs.secondsEl.textContent = diffObj.seconds
+          .toString()
+          .padStart(2, '0');
+        if (diff <= 1000) clearInterval(interval);
+      }, 1000);
+    }
   },
 };
-flatpickr(input, options);
-
-// console.log(selectedTime)
+flatpickr(refs.input, options);
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
@@ -72,6 +64,15 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
-// console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
-// console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
-// console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
+function transform () {
+    refs.daysEl.classList.add('trans');
+    refs.hoursEl.classList.add('trans');
+    refs.minutesEl.classList.add('trans');
+    refs.secondsEl.classList.add('trans');
+    setTimeout(() => {
+      refs.daysEl.classList.remove('trans');
+      refs.hoursEl.classList.remove('trans');
+      refs.minutesEl.classList.remove('trans');
+      refs.secondsEl.classList.remove('trans');
+    }, 500);
+}
