@@ -34,15 +34,15 @@ img {
 
 .value {
   font-size: 40px;
-    font-weight: 600;
+  font-weight: 600;
 
   color: #888;
   transition: all 0.5s;
-  /* color: blue; */
 }
 
 .trans {
   transform: scale(1.05);
   color: #000;
 }
+
 
