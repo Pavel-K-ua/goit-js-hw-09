@@ -29,7 +29,7 @@ const options = {
       const interval = setInterval(() => {
         transform();
         diff -= 1000;
-        diffObj = convertMs(diff);
+        const diffObj = convertMs(diff);
         render(diffObj);
         if (diff <= 1000) clearInterval(interval);
       }, 1000);
