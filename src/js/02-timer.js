@@ -27,17 +27,10 @@ const options = {
     refs.startBtn.addEventListener('click', onStartBtnClick);
     function onStartBtnClick() {
       const interval = setInterval(() => {
-        transform ()
+        transform();
         diff -= 1000;
         diffObj = convertMs(diff);
-        refs.daysEl.textContent = diffObj.days.toString().padStart(2, '0');
-        refs.hoursEl.textContent = diffObj.hours.toString().padStart(2, '0');
-        refs.minutesEl.textContent = diffObj.minutes
-          .toString()
-          .padStart(2, '0');
-        refs.secondsEl.textContent = diffObj.seconds
-          .toString()
-          .padStart(2, '0');
+        render(diffObj);
         if (diff <= 1000) clearInterval(interval);
       }, 1000);
     }
@@ -64,15 +57,22 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
-function transform () {
-    refs.daysEl.classList.add('trans');
-    refs.hoursEl.classList.add('trans');
-    refs.minutesEl.classList.add('trans');
-    refs.secondsEl.classList.add('trans');
-    setTimeout(() => {
-      refs.daysEl.classList.remove('trans');
-      refs.hoursEl.classList.remove('trans');
-      refs.minutesEl.classList.remove('trans');
-      refs.secondsEl.classList.remove('trans');
-    }, 500);
+function transform() {
+  refs.daysEl.classList.add('trans');
+  refs.hoursEl.classList.add('trans');
+  refs.minutesEl.classList.add('trans');
+  refs.secondsEl.classList.add('trans');
+  setTimeout(() => {
+    refs.daysEl.classList.remove('trans');
+    refs.hoursEl.classList.remove('trans');
+    refs.minutesEl.classList.remove('trans');
+    refs.secondsEl.classList.remove('trans');
+  }, 500);
+}
+
+function render(diffObj) {
+  refs.daysEl.textContent = diffObj.days.toString().padStart(2, '0');
+  refs.hoursEl.textContent = diffObj.hours.toString().padStart(2, '0');
+  refs.minutesEl.textContent = diffObj.minutes.toString().padStart(2, '0');
+  refs.secondsEl.textContent = diffObj.seconds.toString().padStart(2, '0');
 }
