@@ -9,12 +9,12 @@ const refs = {
 };
 
 refs.form.addEventListener('submit', onFormSubmit);
- 
+
 function onFormSubmit(event) {
   event.preventDefault();
-const amountValue = Number(refs.amount.value);
-const delayValue = Number(refs.delay.value);
-const stepValue = Number(refs.step.value);
+  const amountValue = Number(refs.amount.value);
+  const delayValue = Number(refs.delay.value);
+  const stepValue = Number(refs.step.value);
 
   for (let i = 1; i <= amountValue; i++) {
     let totalDelay = delayValue + stepValue * (i - 1);
@@ -28,15 +28,15 @@ const stepValue = Number(refs.step.value);
 function createPromise(position, delay) {
   // console.log(delay);
   const shouldResolve = Math.random() > 0.3;
-  const promise = new Promise((resolve,reject) => {
+  const promise = new Promise((resolve, reject) => {
     if (shouldResolve) {
-      resolve(Notify.success(`Fulfilled promise ${position} in ${delay}`))
-    }else{
-      reject(Notify.failure(`Rejected promise ${position} in ${delay}`))
+      resolve(Notify.success(`Fulfilled promise ${position} in ${delay}`));
+    } else {
+      reject(Notify.failure(`Rejected promise ${position} in ${delay}`));
     }
-  })
+  });
 
-  return promise
+  return promise;
   // .then(( position, delay ) => {
   //   console.log(delay);
   //   Notify.success(`Fulfilled promise ${position} in ${delay}`);
